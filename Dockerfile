@@ -9,8 +9,10 @@ RUN apt-get update \
 RUN echo '#!/bin/bash \n\
 export TIMESTAMP=$(date -u +%Y-%m-%d_%Hh%M) \n\
 export ACTUALDATE=$(echo $TIMESTAMP | cut -d_ -f1) \n\
-echo "Creating mongo dump file at ${TIMESTAMP}" \n\
-mongodump --uri ${MONGO_URI} --out=./${ACTUALDATE}\${TIMESTAMP} \n\
+echo "Creating mongo dump files ..." \n\
+mongodump --uri ${MONGO_URI} --out=./tmp/${ACTUALDATE}/${TIMESTAMP} \n\
+tar cfv ./${ACTUALDATE}/mongo_dump-${TIMESTAMP}.tar ./tmp/${ACTUALDATE}/${TIMESTAMP}/ \n\
+rm -rf ./tmp \n\
 echo "Done"' > /bin/backup.sh \
 && chmod +x /bin/backup.sh
 
