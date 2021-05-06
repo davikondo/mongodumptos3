@@ -1,14 +1,9 @@
 FROM ubuntu:focal
 
 ENV MONGO_URI="mongodb://user:P%40ssw0rd@localhost/"
-ENV AWS_ACCESS_KEY_ID=value
-ENV AWS_SECRET_ACCESS_KEY=value
-ENV AWS_DEFAULT_REGION=sa-east-1
-ENV S3_BUCKET=value
 
 RUN apt-get update \
-&&  apt-get install -y mongo-tools python3-pip --no-install-recommends \
-&&  pip3 install awscli \
+&&  apt-get install -y mongo-tools --no-install-recommends \
 && rm -rf /var/lib/apt/lists/*
 
 RUN echo '#!/bin/bash \n\
